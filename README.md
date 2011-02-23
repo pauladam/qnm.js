@@ -1,8 +1,10 @@
-### QNM.js
+QNM.js
+======
 
 QNM.js demonstrates some example queueing network model algorithms in
 Javascript.
 
-Includes, 
+Includes 
+--------
 * Single class exact mean value analysis solver
 
