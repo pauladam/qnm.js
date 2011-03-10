@@ -81,7 +81,7 @@ ckIterator(function(c,k){
 });
 
 // start optimization loop
-while(delta >= tolerance){
+while(delta > tolerance){
 
   var newQLengths = {},
       residenceTimeSum = {};
@@ -134,19 +134,21 @@ while(delta >= tolerance){
   });
 
   // reckon iteration delta
-  delta = 0
+
+  // alternative delta reckoning method (max of differeneces) finishes earlier
+  // so prefer method given below (sum of differences)
+
+  var diffs = [];
   ckIterator(function(c,k){
-    delta += Math.abs( qLengths[[c,k]] - newQLengths[[c,k]] )
+    diffs.push( Math.abs( qLengths[[c,k]] - newQLengths[[c,k]] ) )
   });
-
-
-  // TODO implement alternative delta reckoning approach
+  delta = sum(diffs);
 
   console.log('iteration: %s', iteration);
   console.log('queue lengths: \n%s', inspect(qLengths));
   console.log('throughput: \n%s', inspect(throughput));
   console.log('residence time: \n%s', inspect(residenceTime));
-  console.log('residence time[c]: \n%s', inspect(residenceTimeSum));
+  console.log('residence time[c]: \n%s\n', inspect(residenceTimeSum));
   console.log('delta: %s', delta);
   print('');
 
